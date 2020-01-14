@@ -279,8 +279,9 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         astp.k_brot_p=[0, 0]
         astp.k_brot_tc=[1000, 1000]
         #astp.eefm_body_attitude_control_gain=[0, 0.5]
-        astp.eefm_body_attitude_control_gain=[0.5, 0.5]
+        astp.eefm_body_attitude_control_gain=[10, 10]
         astp.eefm_body_attitude_control_time_const=[1000, 1000]
+        astp.eefm_use_force_difference_control=False
         if self.ROBOT_NAME == "JAXON":
             astp.eefm_rot_damping_gain = [[20*1.6*1.1*1.5*1.2*1.65*1.1, 20*1.6*1.1*1.5*1.2*1.65*1.1, 1e5]]*4
             astp.eefm_pos_damping_gain = [[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5*1.2*1.1]]*4
@@ -293,8 +294,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
                                          [20*1.6*1.1*1.5, 20*1.6*1.1*1.5, 1e5],
                                          [20*1.6*1.1*1.5*1.2, 20*1.6*1.1*1.5*1.2, 1e5],
                                          [20*1.6*1.1*1.5*1.2, 20*1.6*1.1*1.5*1.2, 1e5]]
-            astp.eefm_pos_damping_gain = [[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5],
-                                         [3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5],
+            astp.eefm_pos_damping_gain = [[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5*0.5],
+                                         [3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5*0.5],
                                          [3500*1.6*6*0.8, 3500*1.6*6*0.8, 3500*1.6*1.1*1.5*0.8],
                                          [3500*1.6*6*0.8, 3500*1.6*6*0.8, 3500*1.6*1.1*1.5*0.8]]
             # astp.eefm_rot_damping_gain = [[1e5*20*1.6*1.1*1.5, 1e5*20*1.6*1.1*1.5, 1e5],
@@ -305,10 +306,10 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             #                                               [1e5*3500*1.6*6, 1e5*3500*1.6*6, 1e5*3500*1.6*1.1*1.5],
             #                                               [1e5*3500*1.6*6*0.8, 1e5*3500*1.6*6*0.8, 1e5*3500*1.6*1.1*1.5*0.8],
             #                                               [1e5*3500*1.6*6*0.8, 1e5*3500*1.6*6*0.8, 1e5*3500*1.6*1.1*1.5*0.8]]
-            astp.eefm_swing_pos_damping_gain = astp.eefm_pos_damping_gain[0]
-            astp.eefm_swing_rot_damping_gain = astp.eefm_rot_damping_gain[0]
+            astp.eefm_swing_pos_damping_gain = [astp.eefm_pos_damping_gain[0][0], astp.eefm_pos_damping_gain[0][1], astp.eefm_pos_damping_gain[0][2]/5]
+            astp.eefm_swing_rot_damping_gain = [astp.eefm_rot_damping_gain[0][0]/5, astp.eefm_rot_damping_gain[0][1]/5, astp.eefm_rot_damping_gain[0][2]]
             astp.eefm_rot_compensation_limit = [math.radians(30), math.radians(30), math.radians(10), math.radians(10)]
-            astp.eefm_pos_compensation_limit = [0.08, 0.08, 0.050, 0.050]
+            astp.eefm_pos_compensation_limit = [0.15, 0.15, 0.050, 0.050]
         astp.eefm_zmp_delay_time_const=[0, 0]
         astp.detection_time_to_air=5.0
         # astp.use_zmp_truncation=True
@@ -316,8 +317,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         astp.eefm_swing_damping_moment_thre=[15]*3
         astp.eefm_use_swing_damping=True
         # astp.eefm_ee_error_cutoff_freq=10000 # not used
-        astp.eefm_swing_rot_spring_gain=[[5.0, 5.0, 5.0], [5.0, 5.0, 5.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
-        astp.eefm_swing_pos_spring_gain=[[5.0, 5.0, 5.0], [5.0, 5.0, 5.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
+        # astp.eefm_swing_rot_spring_gain=[[5.0, 5.0, 5.0], [5.0, 5.0, 5.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
+        # astp.eefm_swing_pos_spring_gain=[[5.0, 5.0, 5.0], [5.0, 5.0, 5.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
         astp.eefm_swing_rot_time_const=[[1.0, 1.0, 1.0]]*4
         astp.eefm_swing_pos_time_const=[[1.0, 1.0, 1.0]]*4
         astp.eefm_ee_moment_limit = [[90.0,90.0,1e4], [90.0,90.0,1e4], [1e4]*3, [1e4]*3]
